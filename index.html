@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- =============================================================
-   GraphOmni project page – layout mimicking Paper2Poster example
-   Assumes identical static/ assets (bulma, slick, index.css, etc.)
-   Replace every PLACEHOLDER_*.png with your exported figures/tables.
-   ============================================================= -->
+<!-- ==================================================================
+   GraphOmni project page  ─  Aurora-Violet theme  ─  v2 (comprehensive)
+   Includes: features, settings tables, dataset structure, leaderboard
+   Replace PLACEHOLDER_*.png with exports from paper
+   ================================================================== -->
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="GraphOmni ‑ Benchmarking LLM graph‑reasoning across tasks, prompts & serializations.">
+  <meta name="description" content="GraphOmni – A comprehensive, extensible benchmark that evaluates LLM graph-theoretic reasoning across tasks, prompts & serializations.">
   <title>🎲 GraphOmni</title>
 
-  <!-- Google Analytics (remove or replace ID before deployment) -->
+  <!-- GA (remove/replace before deployment) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXX');</script>
 
-  <!-- Fonts & libs (identical to example) -->
+  <!-- Fonts + libs -->
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
   <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
   <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" type="text/css" href="./static/slick/slick.css"/>
@@ -28,144 +27,238 @@
 
   <script defer src="./static/js/fontawesome.all.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="./static/js/bulma-slider.min.js"></script>
   <script type="text/javascript" src="./static/slick/slick.min.js"></script>
   <script src="./static/js/index.js"></script>
 
-  <!-- Custom navbar styling to mirror example -->
+  <!-- ================= Theme variables (Aurora Violet) ================= -->
   <style>
-    .navbar-custom{background-color:#209CEE;position:fixed;top:0;width:100%;z-index:1000;transition:background-color .5s ease;}
+    :root{
+      --accent-100:#6B4CED;--accent-200:#583bd6;--accent-300:#eceaff;--accent-grad:linear-gradient(125deg,#6B4CED 0%,#9C53F5 100%);
+    }
+    /* Navbar */
+    .navbar-custom{background:var(--accent-grad);position:fixed;top:0;width:100%;z-index:1000;transition:box-shadow .35s ease;}
+    .navbar-custom.scrolled{box-shadow:0 2px 6px rgba(0,0,0,.12);}  
     .navbar-custom .navbar-item,.navbar-custom a{color:#fff;font-weight:600;}
-    .navbar-custom.scrolled{box-shadow:0 2px 4px rgba(0,0,0,.1);}  
-    body{padding-top:58px;}/* offset for fixed navbar */
+    body{padding-top:64px;}
+    /* Buttons */
+    .button.is-accent{background-color:var(--accent-100);color:#fff;border:none;}
+    .button.is-accent:hover{background-color:var(--accent-200);}  
+    /* Gradient text */
+    .gradient-text{background:var(--accent-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    /* Alt section background */
+    .hero.alt-bg{background-color:var(--accent-300);}  
+    /* Simple table styling override for compact look */
+    .table.feature-table td,.table.feature-table th{padding:0.35rem 0.75rem;font-size:0.9rem;}
   </style>
   <script>
-    window.addEventListener('scroll',()=>{
-      document.getElementById('navbar').classList.toggle('scrolled',window.pageYOffset>0);
-    });
+    window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.pageYOffset>0);});
   </script>
 </head>
 <body>
-  <!-- ───────────────────────── Navbar ───────────────────────── -->
-  <ul class="navbar navbar-custom" id="navbar"><li><a href="#home"><strong>🎲GraphOmni</strong></a></li></ul>
+  <!-- ================================================= Navbar ================================================= -->
+  <nav class="navbar navbar-custom" id="navbar">
+    <div class="navbar-brand"><a class="navbar-item" href="#home"><strong>🎲 GraphOmni</strong></a></div>
+    <div class="navbar-menu">
+      <div class="navbar-start" style="flex-grow:1;justify-content:center;">
+        <a class="navbar-item" href="#features">Features</a>
+        <a class="navbar-item" href="#settings">Settings</a>
+        <a class="navbar-item" href="#results">Results</a>
+        <a class="navbar-item" href="#data">Dataset</a>
+        <a class="navbar-item" href="#bibtex">BibTeX</a>
+      </div>
+    </div>
+  </nav>
 
-  <!-- ───────────────────────── Hero: Title & Links ───────────────────────── -->
+  <!-- ================================================= Hero ================================================= -->
   <section class="hero" id="home">
     <div class="hero-body">
       <div class="container has-text-centered">
-        <h1 class="title is-2 publication-title">🎲 GraphOmni<br>Benchmarking LLM Graph Reasoning</h1>
-        <div class="is-size-5 publication-authors">
-          <span class="author-block">Hao Xu<sup>†</sup>,</span>
-          <span class="author-block"><a href="https://edward-jianqaq.github.io/">Xiangru Jian</a><sup>†✉</sup>,</span>
-          <span class="author-block">Xinjian Zhao,</span>
-          <span class="author-block">Wei Pang,</span>
-          <span class="author-block">Chao Zhang, …</span>
-        </div>
-        <div class="is-size-6 publication-authors">†Equal contrib   ✉Corresponding</div>
+        <h1 class="title is-1 gradient-text">GraphOmni</h1>
+        <p class="subtitle is-4">A Comprehensive Benchmark for LLM Graph Reasoning</p>
 
-        <!-- Links row -->
+        <p class="is-size-6"><strong>NeurIPS 2025 (Datasets & Benchmarks Track)</strong></p>
+
+        <div class="is-size-6 publication-authors" style="margin-top:0.75rem;">
+          Hao Xu<sup>1†</sup> &nbsp;|&nbsp;
+          <a href="https://edward-jianqaq.github.io/">Xiangru Jian</a><sup>1†✉</sup> &nbsp;|&nbsp;
+          Xinjian Zhao<sup>1</sup> &nbsp;|&nbsp;
+          Wei Pang<sup>2</sup> &nbsp;|&nbsp;
+          Chao Zhang<sup>3</sup> &nbsp;|&nbsp;
+          <em>et al.</em>
+        </div>
+        <p class="is-size-7">†Equal Contribution &nbsp; ✉Corresponding</p>
+
         <div class="publication-links" style="margin-top:1rem;">
-          <span class="link-block"><a href="https://arxiv.org/pdf/2504.12764.pdf" class="button is-normal is-rounded is-dark"><span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper</span></a></span>
-          <span class="link-block"><a href="https://github.com/GAI-Community/GraphOmni" class="button is-normal is-rounded is-dark"><span class="icon"><i class="fab fa-github"></i></span><span>Code</span></a></span>
-          <span class="link-block"><a href="https://huggingface.co/datasets/G-A-I/GraphOmni" class="button is-normal is-rounded is-dark"><span class="icon"><i class="ai ai-obp"></i></span><span>Dataset</span></a></span>
-          <span class="link-block"><a href="https://arxiv.org/abs/2504.12764" class="button is-normal is-rounded is-dark"><span class="icon"><i class="ai ai-arxiv"></i></span><span>arXiv</span></a></span>
+          <span class="link-block"><a class="button is-small is-rounded is-accent" href="https://arxiv.org/pdf/2504.12764.pdf"><i class="fas fa-file-pdf"></i>&nbsp;Paper</a></span>
+          <span class="link-block"><a class="button is-small is-rounded is-accent" href="https://github.com/GAI-Community/GraphOmni"><i class="fab fa-github"></i>&nbsp;Code</a></span>
+          <span class="link-block"><a class="button is-small is-rounded is-accent" href="https://huggingface.co/datasets/G-A-I/GraphOmni"><i class="ai ai-obp"></i>&nbsp;Dataset</a></span>
+          <span class="link-block"><a class="button is-small is-rounded is-accent" href="https://arxiv.org/abs/2504.12764"><i class="ai ai-arxiv"></i>&nbsp;arXiv</a></span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ───────────────────────── TL;DR Section ───────────────────────── -->
-  <section class="hero teaser">
+  <!-- ================================================= TL;DR / Overview ================================================= -->
+  <section class="hero teaser alt-bg">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
-          <h2 class="title is-3">TL;DR</h2>
-          <p>GraphOmni delivers a <strong>242 k‑query</strong> benchmark over 6 classical graph tasks, 7 text serializations & 9 prompting modes, revealing how <em>representation & prompt</em> fundamentally impact LLM graph‑reasoning. We also release <strong>RL‑Opt</strong>, cutting evaluation cost by 75 % while staying near‑oracle.</p>
+          <h2 class="title is-3 gradient-text">TL;DR</h2>
+          <p>GraphOmni curates <strong>242 k queries</strong> spanning 6 graph-theoretic tasks, 7 serialization formats and 9 prompting strategies, shining light on where LLMs still falter. We further present <strong>RL-Opt</strong>, a lightweight reinforcement learner that approaches oracle accuracy using <em>25 %</em> of brute-force queries.</p>
         </div>
       </div>
-      <center><img src="assets/PLACEHOLDER_fig1_overview.png" style="width:90%;max-width:1000px;" alt="Overview"></center>
+      <center><img src="assets/PLACEHOLDER_fig1_overview.png" style="width:90%;max-width:1000px;" alt="Benchmark overview"></center>
     </div>
   </section>
 
-  <!-- ───────────────────────── Motivation Question (+ demo) ───────────────────────── -->
-  <section class="hero teaser">
-    <div class="hero-body">
-      <div class="columns is-centered"><h2 class="title is-3">Can LLMs Solve Graph Problems Reliably?</h2></div>
-      <div class="container is-max-desktop">
-        <div class="columns is-vcentered">
-          <!-- Left: Graph prompt image -->
-          <div class="column has-text-centered">
-            <img src="assets/PLACEHOLDER_graph_prompt.png" style="height:350px;" alt="Graph prompt">
-            <p class="caption"><strong>Input&nbsp;Prompt:</strong> serialized graph + question</p>
-          </div>
-          <!-- Right: LLM answer image -->
-          <div class="column has-text-centered">
-            <img src="assets/PLACEHOLDER_llm_answer.png" style="height:350px;" alt="LLM answer">
-            <p class="caption"><strong>LLM Output:</strong> chain‑of‑thought + final answer</p>
-          </div>
+  <!-- ================================================= Key Features ================================================= -->
+  <section class="section" id="features">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered"><h2 class="title is-3">Key Features</h2></div>
+      <div class="content">
+        <ul>
+          <li><strong>Combinatorial Coverage.</strong> 6 tasks × 3 difficulty tiers × 7 serializations × 9 prompt modes = 242 k total queries.</li>
+          <li><strong>Plug-and-Play Pipeline.</strong> Simple YAML config to swap in new models, prompts, or graph generators.</li>
+          <li><strong>Closed- & Open-Source Models.</strong> Benchmark includes 10 SOTA models (GPT-4o, Claude-3.5, o4-mini, Llama-3.1 8 B, Mistral 7 B …)</li>
+          <li><strong>RL-Opt Search.</strong> Policy-gradient agent picks (prompt, serialization, model) triples, slashing evaluation cost by 75 % while keeping ≥98 % oracle accuracy.</li>
+          <li><strong>Extensible Dataset.</strong> Modular graph generator supports Erdős-Rényi, Barabási-Albert, Grid, Tree, Bipartite-ERM, Planar, Random Geometric.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================= Benchmark Settings table ================================================= -->
+  <section class="hero teaser alt-bg" id="settings">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered"><h2 class="title is-3 gradient-text">Benchmark Settings</h2></div>
+
+      <div class="columns is-multiline">
+        <div class="column is-half">
+          <h3 class="title is-5">Tasks</h3>
+          <table class="table is-striped feature-table">
+            <tbody>
+              <tr><th>BFS Order</th><td>Return BFS traversal sequence</td></tr>
+              <tr><th>Connectivity</th><td>Is graph connected?</td></tr>
+              <tr><th>Cycle Detection</th><td>Does a cycle exist?</td></tr>
+              <tr><th>Triangle Count</th><td>Number of 3-cliques</td></tr>
+              <tr><th>Diameter</th><td>Longest shortest-path length</td></tr>
+              <tr><th>Shortest Path</th><td>Length between two nodes</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="column is-half">
+          <h3 class="title is-5">Serializations</h3>
+          <table class="table is-striped feature-table">
+            <tbody>
+              <tr><th>Adjacency Matrix</th><td>n×n binary grid</td></tr>
+              <tr><th>Adjacency List</th><td>row per node list</td></tr>
+              <tr><th>Adjacency Set</th><td>Python-dict sets</td></tr>
+              <tr><th>Edge List</th><td>one edge per line</td></tr>
+              <tr><th>Edge Set</th><td>set of tuples</td></tr>
+              <tr><th>GraphML</th><td>XML markup</td></tr>
+              <tr><th>GML</th><td>Graph Modelling Lang.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="column is-half">
+          <h3 class="title is-5">Prompt Modes</h3>
+          <ul style="margin-left:1rem;font-size:0.9rem;">
+            <li><strong>Algorithm</strong> – step-by-step pseudo-code</li>
+            <li><strong>Chain-of-Thought</strong></li>
+            <li><strong>Instruct</strong></li>
+            <li><strong>Few-shot (k=4)</strong></li>
+            <li><strong>0-CoT / 0-Instruct / 0-Alg</strong></li>
+            <li><strong>LTM</strong> – explicit memory tool</li>
+          </ul>
+        </div>
+        <div class="column is-half">
+          <h3 class="title is-5">Difficulty Tiers</h3>
+          <ul style="margin-left:1rem;font-size:0.9rem;">
+            <li><strong>Easy:</strong> n ≤ 10</li>
+            <li><strong>Medium:</strong> 10 < n ≤ 20</li>
+            <li><strong>Hard:</strong> 20 < n ≤ 30</li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ───────────────────────── Main Results ───────────────────────── -->
-  <section class="hero teaser">
+  <!-- ================================================= Results ================================================= -->
+  <section class="hero teaser" id="results">
     <div class="hero-body">
-      <div class="columns is-centered"><h2 class="title is-3">Benchmark Results</h2></div>
+      <div class="columns is-centered"><h2 class="title is-3">Results Snapshot</h2></div>
       <div class="container is-max-desktop">
-        <center><img src="assets/PLACEHOLDER_table1_main.png" style="width:90%;max-width:1000px;" alt="Main results">
-          <figcaption class="caption"><strong>Table 1.</strong> Accuracy (%) across tasks and difficulty tiers.</figcaption></center>
+        <center>
+          <img src="assets/PLACEHOLDER_table1_main.png" style="width:92%;max-width:1100px;" alt="Accuracy table">
+          <figcaption class="caption">Table 1 – Model accuracy averaged across serializations & prompts.</figcaption>
+          <br>
+          <img src="assets/PLACEHOLDER_table2_ablation.png" style="width:92%;max-width:1100px;" alt="Prompt-serialization ablation">
+          <figcaption class="caption">Table 2 – GPT-4o-mini sensitivity to prompt vs. serialization (↑ is better).</figcaption>
+          <br>
+          <img src="assets/PLACEHOLDER_rlopt_curve.png" style="width:70%;max-width:700px;" alt="RL-Opt learning curve">
+          <figcaption class="caption">Figure 3 – RL-Opt discovers high-performing combos with far fewer evaluations.</figcaption>
+        </center>
       </div>
     </div>
   </section>
 
-  <!-- ───────────────────────── RL‑Opt Efficiency Section ───────────────────────── -->
-  <section class="hero teaser">
+  <!-- ================================================= Dataset / Pipeline ================================================= -->
+  <section class="hero teaser alt-bg" id="data">
     <div class="hero-body">
-      <div class="columns is-centered"><h2 class="title is-3">Efficient Search with RL‑Opt</h2></div>
-      <div class="container is-max-desktop"><center>
-        <img src="assets/PLACEHOLDER_rlopt_curve.png" style="width:70%;max-width:700px;" alt="RL-Opt curve">
-        <figcaption class="caption">RL‑Opt approaches oracle combos with ¼ evaluation budget.</figcaption>
-      </center></div>
+      <div class="columns is-centered"><h2 class="title is-3 gradient-text">Dataset & Pipeline</h2></div>
+      <div class="container is-max-desktop">
+        <center><img src="assets/PLACEHOLDER_fig2_pipeline.png" style="width:90%;max-width:1100px;" alt="Evaluation pipeline"></center>
+        <br>
+        <div class="content">
+          <h3 class="title is-5">Data Structure</h3>
+          <pre style="background:#f7f7fb;padding:1rem;font-size:0.8rem;overflow:auto;"><code>└── query
+    ├── query_json
+    │   ├── load_bfsorder.json
+    │   ├── load_connectivity.json
+    │   └── …
+    └── graphs            # raw .npz adjacency tensors (optional)
+</code></pre>
+          <p>Each <code>load_*.json</code> file contains a list of instances with fields: <code>name-id</code>, <code>query</code>, <code>gt_answer</code>, <code>prompt_type</code>, <code>serialization_type</code>, <code>graph_info</code> and more (see paper §3.1).</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ───────────────────────── Abstract Section ───────────────────────── -->
-  <section class="section">
+  <!-- ================================================= Abstract ================================================= -->
+  <section class="section" id="abstract">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered"><div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p><em>GraphOmni</em> presents the first large‑scale, extensible benchmark diagnosing LLM graph‑theoretic reasoning under diverse serializations and prompts. Experiments spanning ten open‑ and closed‑source models show that representation choice is as decisive as model architecture itself, with GPT‑4o still stumbling on global tasks like diameter. To mitigate exhaustive combinatorial evaluation we introduce <strong>RL‑Opt</strong>. Code, dataset, and leaderboard are available.</p>
-        </div>
+        <h2 class="title is-3 gradient-text">Abstract</h2>
+        <div class="content has-text-justified"><p><em>GraphOmni</em> introduces a 242 k-query benchmark that probes large language models on six classical graph-theoretic problems under nine prompting strategies, seven text serializations, and three difficulty tiers. Evaluations across ten open- and closed-source LLMs reveal substantial performance gaps between local and global graph reasoning and show that input representation is as pivotal as model choice. To mitigate exhaustive combinatorial evaluation, we present <strong>RL-Opt</strong>, a reinforcement-learning search that discovers near-optimal (prompt, serialization, model) triples while reducing query cost by 75 %. We release the dataset, code, and leaderboard to foster progress on graph-savvy LLMs.</p></div>
       </div></div>
     </div>
   </section>
 
-  <!-- ───────────────────────── BibTeX ───────────────────────── -->
-  <section class="section" id="BibTeX">
-    <div class="container content is-max-desktop"><h2 class="title">BibTeX</h2>
+  <!-- ================================================= BibTeX ================================================= -->
+  <section class="section alt-bg" id="bibtex">
+    <div class="container content is-max-desktop"><h2 class="title gradient-text">BibTeX</h2>
       <pre><code>@misc{xu2025graphomni,
-  title  = {GraphOmni: A Comprehensive and Extendable Benchmark Framework for LLMs on Graph-Theoretic Tasks},
-  author = {Hao Xu and Xiangru Jian and Xinjian Zhao and Wei Pang and Chao Zhang and Suyuchen Wang and Qixin Zhang and Zhengyuan Dong and Joao Monteiro and Bang Liu and Qiuzhuang Sun and Tianshu Yu},
-  year   = {2025},
-  eprint = {2504.12764},
+  title   = {GraphOmni: A Comprehensive and Extendable Benchmark Framework for LLMs on Graph-Theoretic Tasks},
+  author  = {Hao Xu and Xiangru Jian and Xinjian Zhao and Wei Pang and Chao Zhang and Suyuchen Wang and Qixin Zhang and Zhengyuan Dong and Joao Monteiro and Bang Liu and Qiuzhuang Sun and Tianshu Yu},
+  year    = {2025},
+  eprint  = {2504.12764},
   archivePrefix = {arXiv},
   primaryClass  = {cs.LG}
 }</code></pre>
     </div>
   </section>
 
-  <!-- ───────────────────────── Footer ───────────────────────── -->
+  <!-- ================================================= Footer ================================================= -->
   <footer class="footer">
-    <div class="container"><div class="columns is-centered"><div class="column is-6"><div class="content has-text-centered">
-      Page template adapted from <a href="https://nerfies.github.io/">Nerfies</a> & <a href="https://showlab.github.io/VideoGUI/">VideoGUI</a>. Remember to remove Google Analytics before public hosting.
-    </div></div></div></div>
+    <div class="container">
+      <div class="columns is-centered"><div class="column is-6"><div class="content has-text-centered">
+        Page template adapted from <a href="https://nerfies.github.io/">Nerfies</a> & <a href="https://showlab.github.io/VideoGUI/">VideoGUI</a>. Remove GA ID before public hosting.
+      </div></div></div>
+    </div>
   </footer>
 
-  <!-- ─── Optional: slick carousel JS if you add examples later ─── -->
+  <!-- Optional slick initialisation if you add examples carousel later -->
   <script>
-    // Example of enabling horizontal drag carousel (same as Paper2Poster)
     $(document).ready(function(){
       $('.poster-carousel').slick({slidesToShow:3,infinite:false,arrows:false,variableWidth:true});
     });
