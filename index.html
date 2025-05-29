@@ -1,189 +1,747 @@
 <!DOCTYPE html>
-<html lang="en">
-<!-- =============================================================
-   GraphOmni project page  ─  Minimal white theme  ─  v3
-   Emphasis: concise contributions + wide space for results/examples
-   ============================================================= -->
+<html>
 <head>
+  <link rel="icon" type="image/png" href="assets/icons/graph.png">
   <meta charset="utf-8">
+  <meta name="description"
+        content="GraphOmni: A Comprehensive and Extendable Benchmark Framework for LLMs on Graph-theoretic Tasks">
+  <meta name="keywords" content="Graph, LLMs, Benchmark">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="GraphOmni – A comprehensive benchmark diagnosing LLM graph‑theoretic reasoning.">
   <title>GraphOmni</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
 
-  <!-- Fonts & libs -->
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
-  <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" type="text/css" href="./static/slick/slick.css"/>
-  <link rel="stylesheet" type="text/css" href="./static/slick/slick-theme.css"/>
-  <link rel="stylesheet" href="./static/css/index.css">
-  <link rel="icon" type="image/png" href="static/images/graph_icon.png">
 
-  <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script type="text/javascript" src="./static/slick/slick.min.js"></script>
 
-  <!-- ===== Custom minimal styling ===== -->
-  <style>
-    /* Navbar */
-    .navbar-custom{background:#fff;position:fixed;top:0;width:100%;z-index:1000;border-bottom:1px solid #e0e0e0;transition:box-shadow .3s ease;}
-    .navbar-custom.scrolled{box-shadow:0 2px 4px rgba(0,0,0,.06);}  
-    .navbar-custom .navbar-item,.navbar-custom a{color:#363636;font-weight:600;}
-    body{padding-top:60px;}
-
-    /* Buttons */
-    .button.is-primary{background-color:#3273dc;color:#fff;border:none;}
-    .button.is-primary:hover{background-color:#2759a5;}
-
-    /* Section spacing */
-    section.hero,section.section{padding-top:3rem;padding-bottom:3rem;}
-
-    /* Caption */
-    .caption{font-size:0.85rem;color:#6b6b6b;margin-top:4px;}
-
-    /* Table compact */
-    .table.feature-table td,.table.feature-table th{padding:0.4rem 0.75rem;font-size:0.9rem;}
-
-    /* Carousel arrows color */
-    .slick-prev:before,.slick-next:before{color:#3273dc;}
-  </style>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
   <script>
-    window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.pageYOffset>0);});
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
   </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
 </head>
 <body>
-  <!-- ================================ Navbar ================================ -->
-  <nav class="navbar navbar-custom" id="navbar">
-    <div class="navbar-brand">
-      <a class="navbar-item" href="#home"><i class="fas fa-project-diagram"></i>&nbsp;<strong>GraphOmni</strong></a>
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
-      </a>
-    </div>
-    <div class="navbar-menu">
-      <div class="navbar-start" style="flex-grow:1;justify-content:center;">
-        <a class="navbar-item" href="#contrib">Contributions</a>
-        <a class="navbar-item" href="#results">Results</a>
-        <a class="navbar-item" href="#examples">Examples</a>
-        <a class="navbar-item" href="#settings">Setup</a>
-        <a class="navbar-item" href="#bibtex">BibTeX</a>
-      </div>
-    </div>
-  </nav>
 
-  <!-- ================================ Hero ================================ -->
-  <section class="hero" id="home">
-    <div class="hero-body">
-      <div class="container has-text-centered">
-        <h1 class="title is-2"><i class="fas fa-project-diagram"></i>&nbsp;GraphOmni</h1>
-        <p class="subtitle is-5">Benchmarking Large‑Language‑Models on Graph‑Theoretic Reasoning</p>
 
-        <div class="is-size-6 publication-authors" style="margin-top:1rem;">
-          Hao Xu*, Xiangru Jian*, Xinjian Zhao, Wei Pang, Chao Zhang <em>et al.</em>  <small>(*equal contribution)</small>
-        </div>
-
-        <div class="publication-links" style="margin-top:1.2rem;">
-          <a class="button is-small is-primary" href="https://arxiv.org/pdf/2504.12764.pdf"><i class="fas fa-file-pdf"></i>&nbsp;Paper</a>
-          <a class="button is-small is-primary" href="https://github.com/GAI-Community/GraphOmni"><i class="fab fa-github"></i>&nbsp;Code</a>
-          <a class="button is-small is-primary" href="https://huggingface.co/datasets/G-A-I/GraphOmni"><i class="ai ai-obp"></i>&nbsp;Dataset</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================================ Key Contributions ================================ -->
-  <section class="section" id="contrib">
+<section class="hero">
+  <div class="hero-body">
     <div class="container is-max-desktop">
-      <h2 class="title is-3 has-text-centered">Key Contributions</h2>
-      <div class="content" style="max-width:850px;margin:0 auto;">
-        <ul>
-          <li><strong>Comprehensive Coverage:</strong> 6 tasks × 3 difficulty tiers × 7 serializations × 9 prompt modes (242 k queries).</li>
-          <li><strong>Realistic Evaluation:</strong> Benchmarks 10 leading LLMs (open & closed) and shows representation‑prompt interplay can swing accuracy by 40 pp.</li>
-          <li><strong>RL‑Opt:</strong> Lightweight policy‑gradient search finds near‑optimal (prompt, serialization, model) triples with 75 % fewer queries.</li>
-          <li><strong>Extensible Framework:</strong> Plug‑and‑play YAML config, HF dataset, batch‑API scripts, and leaderboard.</li>
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">
+            <img src="assets/icons/graph.png" alt="Graph Icon" style="height: 1em; vertical-align: middle; margin-right: 0.2em;">GraphOmni: Comprehensive Benchmark for LLMs on Graph-theoretic Tasks</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <sup>1</sup><a href="https://github.com/more1643127748">Hao Xu</a><sup>†</sup>,</span>
+            <span class="author-block">
+              <sup>2</sup><a href="https://edward-jianqaq.github.io/">Xiangru Jian</a><sup>† ✉</sup>,</span>
+            <span class="author-block">
+              <sup>1</sup><a href="https://scholar.google.com/citations?user=iKuIMsgAAAAJ&hl=en">Xinjian Zhao</a><sup>†</sup>,
+            </span>
+            <span class="author-block">
+              <sup>2</sup><a href="https://scholar.google.com/citations?user=f90pZOYAAAAJ&hl=en">Wei Pang</a><sup>†</sup>,
+            </span>
+            <span class="author-block">
+              <sup>2</sup><a href="https://chaozhang-cs.github.io/">Chao Zhang</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <sup>3</sup><a href="https://suyuchen.wang/">Suyuchen Wang</a>,
+            </span>
+            <span class="author-block">
+              <sup>4</sup><a href="https://scholar.google.com/citations?user=8MInmSsx3IgC&hl=zh-CN">Qixin Zhang</a>,
+            </span>
+            <span class="author-block">
+              <sup>2</sup><a href="https://doradong-2023.github.io/DoraDong/">Zhengyuan Dong</a>,
+            </span>
+            <span class="author-block">
+              <sup>5</sup><a href="https://joaomonteirof.github.io/">Joao Monteiro</a>,
+            </span>
+            <span class="author-block">
+              <sup>3</sup><a href="https://www-labs.iro.umontreal.ca/~liubang/">Bang Liu</a>,
+            </span>
+            <span class="author-block">
+              <sup>6</sup><a href="https://q-strong.github.io/">Qiuzhuang Sun</a>,
+            </span>
+            <span class="author-block">
+              <sup>1</sup><a href="https://mypage.cuhk.edu.cn/academics/yutianshu/">Tianshu Yu</a><sup>✉</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>CUHK(SZ),</span>
+            <span class="author-block"><sup>2</sup>University of Waterloo,</span>
+            <span class="author-block"><sup>3</sup>UdeM/Mila,</span>
+            <span class="author-block"><sup>4</sup>CityUHK,</span>
+            <span class="author-block"><sup>5</sup>Autodesk,</span>
+            <span class="author-block"><sup>6</sup>University of Sydney</span>
+          </div>
+          † Equal Contribution, ✉ Corresponding Authors
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2504.12764"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span> -->
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/GAI-Community/GraphOmni"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/G-A-I/GraphOmni"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Datasets</span>
+                  </a>
+              </span>
+                  <!-- Daily Papers Link -->
+              <span class="link-block">
+                <a href="https://huggingface.co/papers" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-newspaper"></i></span>
+                  <span>Daily Papers</span>
+                </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+    <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">TL;DR</h2>
+        <div class="content has-text-centered mt-4">
+          <p
+            class="box has-background-warning-light has-text-black is-size-3 has-text-weight-normal"
+            style="display: inline-block; padding: 1em 1.5em; border-radius: 8px;"
+          >
+            <span class="has-text-link has-text-weight-bold">GraphOmni</span> delivers the most <span class="has-text-link has-text-weight-bold">Comprehensive Evaluation</span> of LLMs on <span class="has-text-link has-text-weight-bold">Graph Reasoning</span> tasks.
+          </p>
+        </div>
+      </div>
+    </div>
+        <!-- Overview Image + Caption -->
+<div class="columns is-centered mt-4">
+  <div class="column is-full has-text-centered">
+    <figure class="image is-inline-block">
+      <img src="./assets/images/overview_old.png" alt="GraphOmni Overview">
+      <figcaption class="has-text-grey-dark is-size-5 mt-3">
+        Overview of the GraphOmni benchmark. The benchmark evaluates LLMs across diverse
+        <span class="has-background-primary-light has-text-black px-2 py-1" style="border-radius:4px;">
+          graph types
+        </span>,
+        <span class="has-background-link-light has-text-black px-2 py-1" style="border-radius:4px;">
+          serialization formats
+        </span>,
+        and
+        <span class="has-background-warning-light has-text-black px-2 py-1" style="border-radius:4px;">
+          prompt schemes
+        </span>
+        on a comprehensive suite of
+        <span class="has-background-danger-light has-text-black px-2 py-1" style="border-radius:4px;">
+          graph-theoretic tasks
+        </span>.
+      </figcaption>
+    </figure>
+  </div>
+</div>
+
+
+    <!-- </br>
+    <Center>
+      <img src="./assets/images/overview.png" alt="">
+    </Center>
+    </div>
+    </div>
+    <br> -->
+</section>
+
+<!-- <section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Introduction</h2>
+        <div class="content has-text-justified">
+          <p>
+            <strong>GraphOmni</strong> is the first fully extensible benchmark for evaluating the reasoning capabilities of LLMs on graph-theoretic tasks in natural language. Spanning  <strong>6 graph tasks</strong>, <strong>7 graph types</strong>, <strong>7 serialization formats</strong>, and <strong>9 prompt schemes</strong>, it systematically explores how these interdependent dimensions shape model performance. Our extensive evaluations reveal that even top models like Claude-3.5 and o4-mini excel on some combinations yet leave substantial room for improvement on harder tasks. To streamline tuning, we introduce a <strong>reinforcement learning-inspired</strong> framework that adaptively selects optimal configurations at minimal cost. This open, modular platform lays a robust foundation for advancing LLM's ability on graph understanding and reasoning.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <!-- Introduction -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Introduction</h2>
+        <div class="content has-text-justified">
+          <p>
+            <strong>GraphOmni</strong> is the first fully extensible benchmark for evaluating the reasoning capabilities of LLMs on graph-theoretic tasks in natural language. Spanning <strong>6 graph tasks</strong>, <strong>7 graph types</strong>, <strong>7 serialization formats</strong>, and <strong>9 prompt schemes</strong>, it systematically explores how these interdependent dimensions shape model performance. Our extensive evaluations reveal that even top models like Claude-3.5 and o4-mini excel on some combinations yet leave substantial room for improvement on harder tasks. To streamline tuning, we introduce a <strong>reinforcement learning-inspired</strong> framework that adaptively selects optimal configurations at minimal cost. This open, modular platform lays a robust foundation for advancing LLMs’ graph understanding and reasoning.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Statistics Figure -->
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <figure class="image">
+          <img
+            src="./assets/images/radar_chart.png"
+            alt="Benchmark Statistics"
+            style="max-width: 110%; height: auto;"
+          />
+          <figcaption class="has-text-grey-dark is-size-6 mt-2">
+            Radar charts comparing the performance of open-source (top row) and closed-source (bottom row) LLMs across six graph tasks (<strong>BFS Order</strong>, <strong>Connectivity Check</strong>, <strong>Cycle Detection</strong>, <strong>Diameter Calculation</strong>, <strong>Shortest Path</strong>, <strong>Triangle Counting</strong>) at three difficulty levels (easy, medium, hard).
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-3 has-text-centered">
+      What Is Missing in the Evaluation of Graph Reasoning Tasks?
+    </h2>
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <figure class="image">
+          <img
+            src="./assets/images/challenges.png"
+            alt="Illustration of key challenges"
+            style="max-width: 100%; height: auto;"
+          />
+        </figure>
+      </div>
+    </div>
+
+    <!-- Missing Features We Provide -->
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <div class="content has-text-justified">
+          <ul>
+            <li>
+              <span class="has-background-primary-light has-text-weight-semibold px-2 py-1" style="border-radius:4px;">
+                Rich Graph Diversity
+              </span>: 7 synthetic graph types (others use only 1–4), covering a wider range of structural patterns.
+            </li>
+            <li>
+              <span class="has-background-link-light has-text-weight-semibold px-2 py-1" style="border-radius:4px;">
+                Multiple Serializations
+              </span>: 7 formats (vs. 1–4), so models are tested on adjacency lists, matrices, edge lists, and more.
+            </li>
+            <li>
+              <span class="has-background-warning-light has-text-weight-semibold px-2 py-1" style="border-radius:4px;">
+                Varied Prompt Schemes
+              </span>: 9 schemes (vs. 1–6), from algorithmic templates to chain‐of‐thought, letting us probe prompting sensitivity.
+            </li>
+            <li>
+              <span class="has-background-danger-light has-text-weight-semibold px-2 py-1" style="border-radius:4px;">
+                Random Baseline &amp; Modular Design
+              </span>: Only GraphOmni includes both simple random baseline and a plug‐and‐play evaluation pipeline for easy extension and ablation.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title is-3" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+        <!-- your custom icon -->
+        <img src="./assets/icons/graph.png" alt="GraphOmni Icon" style="height: 1.2em;">
+        <!-- MMMU text -->
+        <span>GraphOmni Benchmark</span>
+        <!-- Benchmark with highlighted first letter -->
+      </h1>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-3 has-text-centered">
+      Evaluation Pipeline
+    </h2>
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <figure class="image">
+          <img
+            src="./assets/images/pipeline_v2.png"
+            alt="Illustration of pipeline"
+            style="max-width: 100%; height: auto;"
+          />
+          <figcaption class="has-text-grey-dark is-size-6 mt-2">
+            <strong>GraphOmni Evaluation Pipeline.</strong> We convert graph-theoretic tasks into text-based questions. In the adjustable settings, we vary three dimensions, i.e.,         <span class="has-background-primary-light has-text-black px-2 py-1" style="border-radius:4px;">graph types</span>,<span class="has-background-link-light has-text-black px-2 py-1" style="border-radius:4px;">serialization formats</span>, and <span class="has-background-warning-light has-text-black px-2 py-1" style="border-radius:4px;">prompt schemes</span>, and then generate every possible combination. Each of them is fed to the LLM, and its output is compared against the ground truth to assess performance.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="hero teaser">
+  <div class="hero-body">
+    <div class="columns is-centered">
+      <h2 class="title is-3">Data Statistics</h2>
+    </div>
+    <div class="container is-max-desktop">
+      <div class="columns is-vcentered">
+        <!-- Left: Paper -->
+        <div class="column has-text-centered">
+          <img src="./assets/images/stats_table.png" alt="Stats_table" style="max-width: 100%; height: auto;">
+          <figcaption class="has-text-grey-dark is-size-6 mt-2">
+            Statistical summary of GraphOmni over all tasks at different difficulty levels.
+          </figcaption>
+        </div>
+        <!-- Arrow -->
+        <!-- <div class="column has-text-centered">
+          <img src="./assets/right.png" alt="Arrow" style="width: 40px;">
+        </div> -->
+        <!-- Right: Poster -->
+        <div class="column has-text-centered">
+        <img
+          src="./assets/images/stats.png"
+          alt="Illustration of key challenges"
+          style="max-width: 100%; height: auto;"
+        >
+        <figcaption class="has-text-grey-dark is-size-6 mt-2">
+          Token usage for prompt-serialization combinations.
+        </figcaption>
+          <!-- <p class="caption" style="text-align: center; margin-top: 10px;"><strong>Outputs: </strong><a href="https://neurips.cc/media/PosterPDFs/NeurIPS%202022/61269.png?t=1669788855.791561">Poster</a> (designed by author)</p>
+          </p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title is-3" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+        <!-- your custom icon -->
+        <img src="./assets/icons/evaluation.png" alt="GraphOmni Icon" style="height: 1.2em;">
+        <!-- MMMU text -->
+        <span>Evaluation Results</span>
+        <!-- Benchmark with highlighted first letter -->
+      </h1>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-3 has-text-centered">
+      Overall Results
+    </h2>
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <figure class="image">
+          <img
+            src="./assets/images/main_results.png"
+            alt="Main Results"
+            style="max-width: 100%; height: auto;"
+          />
+          <figcaption class="has-text-grey-dark is-size-6 mt-2">
+          <strong>
+            Benchmark Accuracy of Large Language Models Across Tasks 
+            (Mean ± 95 CI Margin). 
+            <span style="background-color: orange;">Bold orange</span>
+          </strong> / 
+          <span style="background-color: lightblue; text-decoration: underline;">Underlined blue</span> / 
+          <span style="background-color: plum;">Light purple</span>
+          highlights indicate best / second-best / third-best performance
+          relative to each model type (i.e., open-source or closed-source models).
+        </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <!-- Missing Features We Provide -->
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <div class="content has-text-justified">
+          <ul>
+          <li class="mb-2">
+            <span class="has-background-primary-light has-text-weight-semibold px-2 py-1" style="border-radius:4px;">
+              o4-mini Raises the Bar
+            </span>: Beats or ties GPT-4o and Claude-3.5 on 7 / 10 hard tasks, hitting 92–93 % on Cycle Count and Connected Components.
+          </li>
+          <li class="mb-2">
+            <span class="has-background-link-light has-text-weight-semibold px-2 py-1" style="border-radius:4px;">
+              Gap to Human Mastery
+            </span>: Accuracy is less than 35 % on hard cases of Triangle Counting and BFS Order for all models, far below human-level mastery.
+          </li>
+          <li class="mb-2">
+            <span class="has-background-warning-light has-text-weight-semibold px-2 py-1" style="border-radius:4px;">
+              Closed &gt; Open
+            </span>: Best-performing open-source LLM Qwen-2.5 lags o4-mini by 8–15% on average and the gap widens as difficulty increases.
+          </li>
+          <li class="mb-2">
+            <span class="has-background-danger-light has-text-weight-semibold px-2 py-1" style="border-radius:4px;">
+              Tight CIs
+            </span>: 95 % CI margins mostly less than 2%, so rank ordering is statistically robust.
+          </li>
         </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================================ Results Space ================================ -->
-  <section class="hero" id="results">
-    <div class="hero-body">
-      <div class="container is-max-desktop">
-        <h2 class="title is-3 has-text-centered">Benchmark Results</h2>
-        <center>
-          <img src="assets/PLACEHOLDER_table1_main.png" style="width:95%;max-width:1100px;" alt="Main results table">
-          <figcaption class="caption">Table 1 — Accuracy (%) averaged over serializations & prompts.</figcaption>
-          <br>
-          <img src="assets/PLACEHOLDER_table2_ablation.png" style="width:95%;max-width:1100px;" alt="Prompt‑serialization ablation">
-          <figcaption class="caption">Table 2 — Sensitivity to prompt strategy vs. serialization format.</figcaption>
-          <br>
-          <img src="assets/PLACEHOLDER_rlopt_curve.png" style="width:75%;max-width:700px;" alt="RL‑Opt curve">
-          <figcaption class="caption">Figure 3 — RL‑Opt approaches oracle combos with quarter cost.</figcaption>
-        </center>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================================ Examples Carousel ================================ -->
-  <section class="hero" id="examples">
-    <div class="hero-body">
-      <div class="container is-max-desktop">
-        <h2 class="title is-3 has-text-centered">Qualitative Examples</h2>
-        <!-- Carousel placeholder (drop images into assets/examples/) -->
-        <div class="poster-carousel" style="margin-top:1.5rem;">
-          <div class="poster-item"><img src="assets/examples/PLACEHOLDER_example1.png" alt="Example 1"><p class="caption">GPT‑4o output</p></div>
-          <div class="poster-item"><img src="assets/examples/PLACEHOLDER_example2.png" alt="Example 2"><p class="caption">Llama‑3.1 output</p></div>
-          <div class="poster-item"><img src="assets/examples/PLACEHOLDER_example3.png" alt="Example 3"><p class="caption">Ground‑truth reasoning</p></div>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- ================================ Setup (condensed) ================================ -->
-  <section class="section" id="settings">
-    <div class="container is-max-desktop">
-      <h2 class="title is-3 has-text-centered">Benchmark Setup</h2>
-      <div class="columns">
-        <div class="column">
-          <h4 class="title is-5">Tasks</h4>
-          <ul style="font-size:0.9rem;line-height:1.4;">
-            <li>BFS Order</li><li>Connectivity</li><li>Cycle Detection</li><li>Triangle Count</li><li>Diameter</li><li>Shortest Path</li>
-          </ul>
-        </div>
-        <div class="column">
-          <h4 class="title is-5">Serializations</h4>
-          <ul style="font-size:0.9rem;line-height:1.4;">
-            <li>Adjacency Matrix • List • Set</li>
-            <li>Edge List • Set</li>
-            <li>GraphML • GML</li>
-          </ul>
-        </div>
-        <div class="column">
-          <h4 class="title is-5">Prompts</h4>
-          <ul style="font-size:0.9rem;line-height:1.4;">
-            <li>Algorithm / Chain‑of‑Thought / Instruct</li>
-            <li>Few‑shot (k=4) / Zero‑shot variants</li>
-            <li>LTM (memory tool)</li>
-          </ul>
-        </div>
-        <div class="column">
-          <h4 class="title is-5">Difficulty</h4>
-          <ul style="font-size:0.9rem;line-height:1.4;">
-            <li>Easy (n ≤ 10)</li><li>Medium (10 < n ≤ 20)</li><li>Hard (20 < n ≤ 30)</li>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-3 has-text-centered">
+      Different Combinations Make a Difference
+    </h2>
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <figure class="image">
+          <img
+            src="./assets/images/heatmap.png"
+            alt="Heatmap"
+            style="max-width: 100%; height: auto;"
+          />
+          <figcaption class="has-text-grey-dark is-size-6 mt-2">
+            <strong>Performance heatmaps for different prompt schemes and serialization formats on diameter calculation of GPT-4o.</strong>
+            The color intensity represents the accuracy, with darker colors indicating better performance.
+            The solid and dashed boxes highlight the best and second-best performing combinations, respectively.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <div class="content has-text-justified">
+          <ul style="margin-top:8px;" class="is-inline-block">
+            <li class="mb-2">
+              <span class="has-background-info-light has-text-weight-semibold px-2 py-1" style="border-radius:4px;">
+                High Sensitivity
+              </span>: accuracy swings 40% (≈30 % → 70 %) on formatting alone.
+            </li>
+            <!-- <li class="mb-2">
+              <span class="has-background-success-light has-text-weight-semibold px-2 py-1" style="border-radius:4px;">
+                Best Combo
+              </span>: adjacency-list + “step-by-step” prompt dominates the top cells.
+            </li>
+            <li class="mb-2">
+              <span class="has-background-warning-light has-text-weight-semibold px-2 py-1" style="border-radius:4px;">
+                Second-Best Insights
+              </span>: dashed boxes differ only in prompt style, showing wording can rescue weak formats.
+            </li> -->
+            <li class="mb-2">
+              <span class="has-background-danger-light has-text-weight-semibold px-2 py-1" style="border-radius:4px;">
+                Evaluate Everything
+              </span>: fixing one dimension and sweeping the other can misestimate capability, so we need to vary both!
+            </li>
           </ul>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- ================================ BibTeX ================================ -->
-  <section class="section" id="bibtex">
-    <div class="container content is-max-desktop">
-      <h2 class="title is-3 has-text-centered">BibTeX</h2>
-      <pre><code>@misc{xu2025graphomni,
-  title  = {GraphOmni: A Comprehensive and Extendable Benchmark Framework for LLMs on Graph‑Theoretic Tasks},
-  author = {Hao Xu and Xiangru Jian and others},
-  year   = {2025},
-  eprint = {2504.
+    
+
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <figure class="image">
+          <img
+            src="./assets/images/prompt_schemes.png"
+            alt="Prompt Schemes"
+            style="max-width: 100%; height: auto;"
+          />
+          <figcaption class="has-text-grey-dark is-size-6 mt-2">
+            <strong>Accuracy of open-source versus closed-source models with different prompt schemes and token usage analysis.</strong>
+            (a) and (b) show the average performance with a 95% confidence interval for open-/closed-source models across various prompt schemes and tasks, with the x-axis sorted by mean accuracy.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <div class="content has-text-justified">
+          <ul style="margin-top:8px;">
+            <li class="mb-2">
+              <span class="has-background-primary-light has-text-weight-semibold px-2 py-1" style="border-radius:4px;">
+                Closed-Source Superiority
+              </span>: closed-source models consistently outperform open-source ones across all prompt schemes.
+            </li>
+            <!-- <li class="mb-2">
+              <span class="has-background-link-light has-text-weight-semibold px-2 py-1" style="border-radius:4px;">
+                Density &gt; Length
+              </span>: concise prompts that front-load structure beat longer, chatty versions with the same info.
+            </li>
+            <li class="mb-2">
+              <span class="has-background-info-light has-text-weight-semibold px-2 py-1" style="border-radius:4px;">
+                Size Shifts Curve
+              </span>: larger models tolerate more tokens before dipping, but still show a peak-and-drop pattern.
+            </li> -->
+            <li class="mb-2">
+              <span class="has-background-success-light has-text-weight-semibold px-2 py-1" style="border-radius:4px;">
+                Favor CoT &amp; Instruct
+              </span>: Chain-of-Thought and Instruct prompts yield the highest mean accuracies, especially on eaty/medium-difficulty tasks.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    
+
+  </div>
+</section>
+
+
+
+<style>
+.poster-carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 20px;
+  padding: 20px;
+  cursor: grab;
+}
+.poster-carousel:active {
+  cursor: grabbing;
+}
+.poster-item {
+  flex: 0 0 auto;
+  width: 45%;
+  text-align: center;
+}
+.poster-item img {
+  height: 500px;
+  object-fit: contain;
+}
+.caption-small {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #555;
+}
+.caption-large {
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 20px;
+}
+</style>
+
+<div class="hero teaser">
+  <div class="hero-body">
+    <div class="columns is-centered">
+      <h2 class="title is-3">Error Analysis</h2>
+    </div>
+
+    <div class="poster-carousel" id="carousel">
+      <div class="poster-item">
+        <img src="./assets/images/errors/triangle, easy,0-shot, Adjacency List,case2.png" alt="GPT-4o Image">
+        <p class="caption-small">Example of Qwen2.5 on Triangle Counting</p>
+      </div>
+      <div class="poster-item">
+        <img src="./assets/images/errors/connectivity, easy, LTM, Edge List, case1.png" alt="gt poster">
+        <p class="caption-small">Example of Mistral on Connectivity Check</p>
+      </div>
+      <div class="poster-item">
+        <img src="./assets/images/errors/triangle, easy, CoT, Edge Set,case2.png" alt="gt poster">
+        <p class="caption-small">Example of o4-mini on Triangle Counting</p>
+      </div>
+      <div class="poster-item">
+        <img src="./assets/images/errors/bfsorder,easy,0-shot, Adjacency Matrix,case2.png" alt="GPT-4o Html">
+        <p class="caption-small">Example of Qwen2.5 on BFS Order</p>
+      </div>
+    </div>
+
+    <p class="caption-large">
+      <span class="has-background-danger-light has-text-black px-2 py-1" style="border-radius:4px;">
+        Case A. Misinterpretation of serialization formats</span>: Models occasionally struggled to accurately interpret serialized graph representations, resulting in misunderstandings of the underlying graph structure.
+    </p>
+
+    <div class="poster-carousel" id="carousel">
+      <div class="poster-item">
+        <img src="./assets/images/errors/cycle, medium,0-CoT, Adjacency List, case1.png" alt="GPT-4o Image">
+        <p class="caption-small">Example of Claude-3.5-Sonnet on Cycle Detection</p>
+      </div>
+      <div class="poster-item">
+        <img src="./assets/images/errors/diameter,easy ,0-shot, Adjacency Matrix, case 1.png" alt="GPT-4o Html">
+        <p class="caption-small">Example of Mistral on Diameter Calculation</p>
+      </div>
+      <div class="poster-item">
+        <img src="./assets/images/errors/triangle, hard,0-shot, GraphML, case1.png" alt="PPT Agent">
+        <p class="caption-small">Example of Mistral on Triangle Counting</p>
+      </div>
+    </div>
+
+    <p class="caption-large">
+      <span class="has-background-danger-light has-text-black px-2 py-1" style="border-radius:4px;">
+        Case B. Incorrect reasoning about graph-theoretic concepts</span>: LLMs frequently exhibited fundamental misunderstandings of basic graph definitions and problem-solving methods. 
+
+
+  </div>
+</div>
+
+
+<script>
+const carousel = document.getElementById('carousel');
+let isDown = false;
+let startX;
+let scrollLeft;
+
+carousel.addEventListener('mousedown', (e) => {
+  isDown = true;
+  startX = e.pageX - carousel.offsetLeft;
+  scrollLeft = carousel.scrollLeft;
+});
+
+carousel.addEventListener('mouseleave', () => {
+  isDown = false;
+});
+carousel.addEventListener('mouseup', () => {
+  isDown = false;
+});
+carousel.addEventListener('mousemove', (e) => {
+  if (!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - carousel.offsetLeft;
+  const walk = (x - startX) * 2;
+  carousel.scrollLeft = scrollLeft - walk;
+});
+</script>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@misc{xu2025graphomni,
+      title={GraphOmni: A Comprehensive and Extendable Benchmark Framework for Large Language Models on Graph-theoretic Tasks}, 
+      author={Hao Xu and Xiangru Jian and Xinjian Zhao and Wei Pang and Chao Zhang and Suyuchen Wang and Qixin Zhang and Zhengyuan Dong and Joao Monteiro and Bang Liu and Qiuzhuang Sun and Tianshu Yu},
+      year={2025},
+      url={https://arxiv.org/abs/2504.12764}
+}</code></pre>
+  </div>
+</section>
+
+
+</code></pre>
+      </div>
+    </section>
+
+
+    <footer class="footer">
+      <div class="container">
+        <!-- <div class="content has-text-centered">
+          <a class="icon-link" href="https://openreview.net/pdf?id=o3yygm3lnzS">
+            <i class="fas fa-file-pdf"></i>
+          </a>
+          <a class="icon-link" href="https://github.com/bytedance/pv3d" class="external-link" disabled>
+            <i class="fab fa-github"></i>
+          </a>
+        </div> -->
+        <div class="columns is-centered">
+          <div class="column is-6">
+            <div class="content">
+              <p>
+                The source code of this webpage is based on the <a href="https://github.com/nerfies/nerfies.github.io/">
+                  Nerfies</a> and <a href="https://paper2poster.github.io/"> Paper2Poster</a>. 
+                  <!-- project webpage. -->
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script type="text/javascript" src="./static/slick/slick.min.js"></script>
+</body>
+
+</body>
+</html>
